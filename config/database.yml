@@ -40,9 +40,12 @@ test:
 #     database: storage/production_cable.sqlite3
 #     migrations_paths: db/cable_migrate
 production:
+  production:
   adapter: postgresql
   encoding: unicode
   database: store_production
+  pool: 5
   username: postgres
   password: <%= ENV["PGPASSWORD"] %>
-  host: <%= ENV["DB_HOST"] || "localhost" %>
+  host: db
+
