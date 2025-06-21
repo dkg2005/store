@@ -5,13 +5,15 @@ ARG RUBY_VERSION=3.2.2
 # 1) Base image
 FROM ruby:${RUBY_VERSION}-slim AS base
 WORKDIR /rails
+# Install base packages
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
       curl \
       libjemalloc2 \
       libvips \
       sqlite3 \
-    && rm -rf /var/lib/apt/lists /var/cache/apt/archives
+      libpq5 && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
 ENV RAILS_ENV=production \
     BUNDLE_DEPLOYMENT=1 \
     BUNDLE_PATH=/usr/local/bundle \
