@@ -1,0 +1,35 @@
+<h1 class="text-3xl font-bold mb-6 text-center text-white">Products</h1>
+
+<% if authenticated? %>
+  <%= link_to "Add New Product",
+              new_product_path,
+              class: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mb-6 inline-block" %>
+<% end %>
+
+<div id="products" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <% @products.each do |product| %>
+    <div class="bg-gray-800 border border-gray-700 rounded-xl shadow p-4">
+
+      <!-- Product name (linked to show page) -->
+      <h2 class="text-xl font-semibold mb-2 text-white">
+        <%= link_to product.name, product_path(product), class: "text-blue-400 hover:underline" %>
+      </h2>
+
+      <!-- Cost -->
+      <p class="text-gray-200 mb-2"><strong>Cost:</strong> ₹<%= product.cost %></p>
+
+      <!-- Featured image -->
+      <% if product.featured_image.attached? %>
+        <%= image_tag product.featured_image, class: "w-full h-auto rounded mb-3" %>
+      <% end %>
+
+      <!-- Stock info -->
+      <% if product.inventory_count.to_i > 0 %>
+        <p class="text-green-400 font-medium"><%= product.inventory_count %> in stock</p>
+      <% else %>
+        <p class="text-red-400 font-semibold">Out of stock</p>
+      <% end %>
+
+    </div>
+  <% end %>
+</div>
