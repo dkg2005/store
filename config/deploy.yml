@@ -27,6 +27,8 @@ asset_path: /rails/public/assets
 
 builder:
   arch: amd64
+  args:
+    CACHE_BREAKER: "2"
 
 accessories:
   db:
