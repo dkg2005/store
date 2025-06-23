@@ -3,7 +3,7 @@ image: dhruv544/store
 
 servers:
   web:
-    - 100.24.37.121  # Replace with your EC2 public IP
+    - 52.4.162.109  # Replace with your EC2 public IP
 
 ssh:
   user: ec2-user
@@ -38,7 +38,7 @@ accessories:
     env:
       clear:
         POSTGRES_USER: postgres
-        DB_HOST: 100.24.37.121
+        DB_HOST: 52.4.162.109
       secret:
         - RAILS_MASTER_KEY
         - PGPASSWORD
