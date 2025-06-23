@@ -33,7 +33,7 @@ builder:
 accessories:
   db:
     image: postgres:16
-    host: 100.24.37.121
+    host: 52.4.162.109
     port: "5432:5432"
     env:
       clear:
