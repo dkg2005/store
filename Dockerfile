@@ -13,6 +13,7 @@ RUN apt-get update -qq && \
       libvips \
       libpq5 \
       sqlite3 && \
+      libpq5 && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 ENV RAILS_ENV="production" \
