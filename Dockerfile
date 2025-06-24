@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-
+ENV BUNDLER_VERSION=2.4.22
 ARG RUBY_VERSION=3.2.2
 FROM ruby:$RUBY_VERSION-slim AS base
 
@@ -40,6 +40,8 @@ COPY . .
 
 RUN bundle exec bootsnap precompile app/ lib/
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+RUN gem install bundler -v "$BUNDLER_VERSION"
+
 
 
 # ---- Final App Image ----

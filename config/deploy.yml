@@ -48,7 +48,7 @@ accessories:
       clear:
         POSTGRES_USER: postgres
       secret:
-        - PGPASSWORD
+        - POSTGRES_PASSWORD
     directories:
       - data:/var/lib/postgresql/data
 
