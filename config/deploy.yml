@@ -7,6 +7,12 @@ servers:
 
 ssh:
   user: ubuntu
+  keys:
+    - /home/dhruv/store-key.pem
+  options:
+    LogLevel: DEBUG
+    StrictHostKeyChecking: no
+
 
 registry:
   username: dhruv544
@@ -20,6 +26,8 @@ env:
   clear:
     RAILS_LOG_LEVEL: debug
     POSTGRES_DB: store_production
+    POSTGRES_USER: postgres
+    DB_HOST: store-db
 
 volumes:
   - "store_storage:/rails/storage"
@@ -34,7 +42,7 @@ builder:
 accessories:
   db:
     image: postgres:16
-    host: 3.92.133.121
+    roles: ["web"]
     port: "5432:5432"
     env:
       clear:
@@ -43,7 +51,6 @@ accessories:
         - PGPASSWORD
     directories:
       - data:/var/lib/postgresql/data
-
 
 
 
