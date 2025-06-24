@@ -3,10 +3,10 @@ image: dhruv544/store
 
 servers:
   web:
-    - 52.4.162.109  # Replace with your EC2 public IP
+    - 3.92.133.121  # Replace with your EC2 public IP
 
 ssh:
-  user: ec2-user
+  user: ubuntu
 
 registry:
   username: dhruv544
@@ -19,6 +19,7 @@ env:
     - PGPASSWORD
   clear:
     RAILS_LOG_LEVEL: debug
+    POSTGRES_DB: store_production
 
 volumes:
   - "store_storage:/rails/storage"
@@ -33,7 +34,7 @@ builder:
 accessories:
   db:
     image: postgres:16
-    host: 52.4.162.109
+    host: 3.92.133.121
     port: "5432:5432"
     env:
       clear:
