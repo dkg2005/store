@@ -1,35 +1,57 @@
-<h1 class="text-3xl font-bold mb-6 text-center text-white">Products</h1>
+<div class="max-w-7xl mx-auto px-4 py-10">
+  <!-- Page Title -->
+  <h1 class="text-4xl font-bold mb-10 text-center text-gray-100">Products</h1>
 
-<% if authenticated? %>
-  <%= link_to "Add New Product",
-              new_product_path,
-              class: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mb-6 inline-block" %>
-<% end %>
-
-<div id="products" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-  <% @products.each do |product| %>
-    <div class="bg-gray-800 border border-gray-700 rounded-xl shadow p-4">
-
-      <!-- Product name (linked to show page) -->
-      <h2 class="text-xl font-semibold mb-2 text-white">
-        <%= link_to product.name, product_path(product), class: "text-blue-400 hover:underline" %>
-      </h2>
-
-      <!-- Cost -->
-      <p class="text-gray-200 mb-2"><strong>Cost:</strong> ₹<%= product.cost %></p>
-
-      <!-- Featured image -->
-      <% if product.featured_image.attached? %>
-        <%= image_tag product.featured_image, class: "w-full h-auto rounded mb-3" %>
-      <% end %>
-
-      <!-- Stock info -->
-      <% if product.inventory_count.to_i > 0 %>
-        <p class="text-green-400 font-medium"><%= product.inventory_count %> in stock</p>
-      <% else %>
-        <p class="text-red-400 font-semibold">Out of stock</p>
-      <% end %>
-
+  <!-- New Product Button -->
+  <% if authenticated? %>
+    <div class="mb-10 text-center">
+      <%= link_to "➕ Add New Product" , new_product_path, class: "bg-blue-600
+    text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 shadow-md
+    transition" %>
     </div>
-  <% end %>
+    <% end %>
+
+      <!-- Product Grid -->
+      <div id="products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <% @products.each do |product| %>
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300 group">
+            <!-- Product Image -->
+            <% if product.featured_image.attached? %>
+              <%= link_to product_path(product), class: "block relative group" do %>
+                <%= image_tag product.featured_image,
+                  class: "w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300 rounded-t-2xl"
+                  %>
+                  <!-- Overlay text -->
+                  <div
+                    class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 rounded-t-2xl">
+                    <span class="text-white text-lg font-semibold">View Product</span>
+                  </div>
+                  <% end %>
+                    <% end %>
+
+
+                      <!-- Product Info -->
+                      <div class="p-4">
+                        <!-- Name -->
+                        <h2 class="text-lg font-bold text-gray-800 mb-2">
+                          <%= link_to product.name, product_path(product), class: "hover:text-blue-600 transition" %>
+                        </h2>
+
+                        <!-- Cost -->
+                        <p class="text-sm text-gray-600 mb-2">
+                          <strong>Cost:</strong> ₹<%= product.cost %>
+                        </p>
+
+                        <!-- Inventory -->
+                        <% if product.inventory_count.to_i> 0 %>
+                          <p class="text-sm text-green-600 font-semibold">
+                            <%= product.inventory_count %> in stock
+                          </p>
+                          <% else %>
+                            <p class="text-sm text-red-500 font-semibold">Out of stock</p>
+                            <% end %>
+                      </div>
+          </div>
+          <% end %>
+      </div>
 </div>

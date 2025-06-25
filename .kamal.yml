@@ -15,6 +15,7 @@ ssh:
 
 
 registry:
+  server: registry-1.docker.io
   username: dhruv544
   password:
     - KAMAL_REGISTRY_PASSWORD

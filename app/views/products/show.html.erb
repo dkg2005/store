@@ -1,21 +1,45 @@
-<p><%= link_to "Back", products_path %></p>
+<div class="max-w-4xl mx-auto mt-10 bg-white p-6 rounded shadow-md">
 
-<section class="product">
-  <%= image_tag @product.featured_image if @product.featured_image.attached? %>
+  <!-- Back Link -->
+  <div class="mb-6">
+    <%= link_to "← Back", products_path, class: "text-blue-600 hover:underline" %>
+  </div>
 
-  <section class="product-info">
-    <% cache @product do %>
-      <h1><%= @product.name %></h1>
-     <p><strong>Cost:</strong> ₹<%= @product.cost %></p>
-      <%= @product.description %>
-    <% end %>
+  <div class="grid md:grid-cols-2 gap-6 items-start">
 
-    <%= render "inventory", product: @product %>
+    <!-- Product Image -->
+    <div>
+      <% if @product.featured_image.attached? %>
+        <%= image_tag @product.featured_image, class: "w-full h-auto rounded shadow" %>
+      <% end %>
+    </div>
 
-    <% if authenticated? %>
-      <%= link_to "Edit", edit_product_path(@product) %>
-      <%= button_to "Delete", @product, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
-    <% end %>
-  </section>
-</section>
+    <!-- Product Info -->
+    <div>
+      <% cache @product do %>
+        <h1 class="text-2xl font-bold text-gray-800 mb-4"><%= @product.name %></h1>
+        <p class="text-lg text-gray-700 mb-2"><strong>Cost:</strong> ₹<%= @product.cost %></p>
+        <div class="prose max-w-none mb-4">
+          <%= @product.description %>
+        </div>
+      <% end %>
 
+      <!-- Inventory info -->
+      <%= render "inventory", product: @product %>
+
+      <!-- Edit/Delete actions -->
+      <% if authenticated? %>
+        <div class="mt-6 flex space-x-4">
+          <%= link_to "Edit", edit_product_path(@product),
+                class: "px-4 py-2 bg-yellow-400 text-gray-900 rounded hover:bg-yellow-500 transition" %>
+
+          <%= button_to "Delete", @product,
+                method: :delete,
+                data: { turbo_confirm: "Are you sure?" },
+                class: "px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+</div>

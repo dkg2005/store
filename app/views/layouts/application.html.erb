@@ -2,42 +2,62 @@
 <html>
   <head>
     <title><%= content_for(:title) || "Store" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple-v1.css">
-     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>\
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
+    <!-- Icons -->
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <!-- Your main styles -->
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <nav>
-  <%= link_to "Home", root_path %>
+  <body class="bg-gray-100 min-h-screen text-gray-800">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md">
+      <div class="container mx-auto px-3 py-2 flex justify-between items-center">
+        <div class="text-xl font-semibold text-blue-600">
+          <%= link_to "Store", root_path, class: "border border-blue-600 text-blue-600 font-semibold px-4 py-2 rounded hover:bg-blue-600 hover:text-white transition duration-200" %>
 
-  <% if authenticated? %>
-    <%= button_to "Log out", session_path, method: :delete, data: { turbo_confirm: "Really log out?" }, form: { style: "display: inline;" } %>
-  <% else %>
-    <%= link_to "Login", new_session_path %>
-  <% end %>
-  </nav>
-    <div class="notice"><%= notice %></div>
-    <main>
+
+        </div>
+
+        <div class="space-x-4">
+          <% if authenticated? %>
+            <%= button_to "Log out", session_path, method: :delete,
+                  data: { turbo_confirm: "Really log out?" },
+                  form: { class: "inline" },
+                  class: "border border-blue-600 text-blue-600 font-semibold px-4 py-2 rounded hover:bg-red-600 hover:text-white transition duration-200" %>
+          <% else %>
+            <%= link_to "Login", new_session_path,
+                  class: "border border-blue-600 text-blue-600 font-semibold px-4 py-2 rounded hover:bg-blue-600 hover:text-white transition duration-200" %>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Flash Notice -->
+    <% if notice.present? %>
+      <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mx-auto mt-4 w-fit">
+        <%= notice %>
+      </div>
+    <% end %>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
       <%= yield %>
     </main>
-
   </body>
 </html>
