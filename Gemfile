@@ -12,7 +12,7 @@ gem "puma", ">= 5.0"
 gem "importmap-rails"
 
 # Add this in the production group
-gem 'pg', '~> 1.5'
+gem 'pg', '~> 1.6'
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
